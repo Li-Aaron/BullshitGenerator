@@ -1,13 +1,22 @@
 #!/usr/bin/python
 
-import os, re
-import random, readJSON
+import os, re, sys
+import random
 
-data = readJSON.ReadJsonFile("data.json")
+def ReadJsonFile(fileName=""):
+    import json
+    if fileName!='':
+        strList = fileName.split(".")
+        if strList[len(strList)-1].lower() == "json":
+            with open(fileName, mode='r', encoding = 'utf-8') as file:
+                return json.loads(file.read())
+
+
+data = ReadJsonFile("data.json")
 FamousPeople = data["famous"] # a代表前面垫话，b代表后面垫话
 FormerTrash  = data["before"] # 前面垫话 在名人名言前面弄点废话
-AfterTrash   = data['after']  # 后面垫话 在名人名言后面弄点废话
-MainTrash    = data['bosh']   # 代表文章主要废话来源
+AfterTrash   = data["after"]  # 后面垫话 在名人名言后面弄点废话
+MainTrash    = data["bosh"]   # 代表文章主要废话来源
 
 Repeats = 2
 
@@ -36,8 +45,12 @@ def NextParagraph():
     return xx
 
 if __name__ == "__main__":
-    topic = input("Please enter main topic:")
-    tmp = u""
+    if len(sys.argv) > 1:
+        topic = sys.argv[1]
+    else:
+        topic = "人的一生究竟有多少苦痛"
+
+    tmp = "  "
     while ( len(tmp) < 6000 ) :
         rand = random.randint(0,100)
         if rand < 5:
@@ -49,4 +62,4 @@ if __name__ == "__main__":
     tmp = tmp.replace("x", topic)
 
     with open("{topic}.txt".format(topic = topic), 'w') as File:
-        File.write(tmp.encode('utf-8'))
+        File.write(tmp)
