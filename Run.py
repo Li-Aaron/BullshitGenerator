@@ -39,21 +39,21 @@ def GenerateFamous():
     return xx
 
 def NextParagraph():
-    xx = ". "
+    xx = ""
     xx += "\r\n"
-    xx += "    "
+    xx += "　　"
     return xx
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        topic = sys.argv[1]
+        topic = str(sys.argv[1])
     else:
         topic = "人的一生究竟有多少苦痛"
 
-    tmp = "  "
+    tmp = "　　"
     while ( len(tmp) < 6000 ) :
         rand = random.randint(0,100)
-        if rand < 5:
+        if rand < 5 and tmp[-1] == "。":
             tmp += NextParagraph()
         elif rand < 20 :
             tmp += GenerateFamous()
@@ -61,5 +61,7 @@ if __name__ == "__main__":
             tmp += next(NextTrash)
     tmp = tmp.replace("x", topic)
 
-    with open("{topic}.txt".format(topic = topic), 'w') as File:
+    print(topic)
+    print(tmp)
+    with open("{topic}.txt".format(topic = topic), 'w', encoding = "utf-8") as File:
         File.write(tmp)
