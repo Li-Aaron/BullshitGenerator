@@ -32,7 +32,7 @@ let 论述 = [
     "经过上述讨论",
 ]
 
-let 名人名言 = [
+let FamousPeople = [
     "伏尔泰曾经说过，不经巨大的困难，不会有伟大的事业。这不禁令我深思",
     "富勒曾经说过，苦难磨炼一些人，也毁灭另一些人。这不禁令我深思",
     "文森特·皮尔曾经说过，改变你的想法，你就改变了自己的世界。这不禁令我深思",
@@ -135,7 +135,7 @@ let 名人名言 = [
     "吉格·金克拉曾经说过，如果你能做梦，你就能实现它。这不禁令我深思",
 ]
 
-let 后面垫话 = [
+let AfterTrash = [
     "这不禁令我深思。 ",
     "带着这句话，我们还要更加慎重的审视这个问题： ",
     "这启发了我， ",
@@ -143,14 +143,14 @@ let 后面垫话 = [
     "这句话语虽然很短，但令我浮想联翩。 ",
 ]
 
-let 前面垫话 = [
+let FormerTrash = [
     "曾经说过",
     "在不经意间这样说过",
 ]
 
-function 随便取一句(列表){
-    let 坐标 = Math.floor( Math.random() * 列表.length );
-    return 列表[坐标];
+function 随便取一句(Array){
+    let 坐标 = Math.floor( Math.random() * Array.length );
+    return Array[坐标];
 }
 
 function 随便取一个数(最小值 = 0,最大值 = 100){
@@ -158,10 +158,10 @@ function 随便取一个数(最小值 = 0,最大值 = 100){
     return 数字;
 }
 
-function 来点名人名言(){
-    let 名言 = 随便取一句(名人名言)
-    名言 = 名言.replace("曾经说过", 随便取一句(前面垫话) )
-    名言 = 名言.replace("这不禁令我深思", 随便取一句(后面垫话) )
+function 来点FamousPeople(){
+    let 名言 = 随便取一句(FamousPeople)
+    名言 = 名言.replace("曾经说过", 随便取一句(FormerTrash) )
+    名言 = 名言.replace("这不禁令我深思", 随便取一句(AfterTrash) )
     return 名言
 }
 
@@ -190,7 +190,7 @@ function 生成文章(){
                 文章.push(章节); 
                 章节 = "";
             }else if(随机数 < 20){
-                let 句子 = 来点名人名言();
+                let 句子 = 来点FamousPeople();
                 章节长度 = 章节长度 + 句子.length;
                 章节 = 章节 + 句子;
             }else{
